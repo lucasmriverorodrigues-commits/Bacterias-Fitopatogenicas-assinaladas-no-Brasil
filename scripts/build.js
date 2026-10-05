@@ -26,6 +26,7 @@ for (const file of [...core,...photos]) {
   if(fs.statSync(path.join(root,file)).size > 25*1024*1024) throw new Error(`Cloudflare asset too large: ${file}`);
 }
 const hash=crypto.createHash('sha256');
+hash.update(fs.readFileSync(path.join(root,'sw.js')));
 for(const file of [...core,...photos]) { hash.update(file); hash.update(fs.readFileSync(path.join(root,file))); }
 const build=`v5.0.0-${hash.digest('hex').slice(0,12)}`;
 fs.writeFileSync(path.join(root,'assets/cache-manifest.js'),`self.APP_BUILD=${JSON.stringify(build)};\nself.CORE_FILES=${JSON.stringify(core)};\nself.PHOTO_FILES=${JSON.stringify(photos)};\n`);

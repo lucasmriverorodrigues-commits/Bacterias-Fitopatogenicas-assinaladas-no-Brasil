@@ -2,7 +2,8 @@ importScripts('assets/cache-manifest.js');
 const CACHE_PREFIX = 'fitobacterias-';
 const CACHE_NAME = `${CACHE_PREFIX}${self.APP_BUILD}`;
 const BASE = self.registration.scope;
-const url = path => new URL(path, BASE).href;
+// Cache the canonical home URL: static hosts may redirect index.html.
+const url = path => new URL(path === 'index.html' ? './' : path, BASE).href;
 const coreFiles = self.CORE_FILES.map(url);
 const photoFiles = self.PHOTO_FILES.map(url);
 
