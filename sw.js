@@ -1,334 +1,73 @@
-﻿const CACHE_NAME = 'fitobacterias-v4.1.4-fotos-publicadas-2008-2026-814';
-const urlsToCache = [
-  "/",
-  "/index.html",
-  "/manifest.json",
-  "/assets/photoDatabase.js",
-  "/icon-192.png.png",
-  "/icon-512.png.png",
-  "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css",
-  "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js",
-  "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap",
-  "/assets/fotos/afelandra_erwinia_foliar_01.jpg",
-  "/assets/fotos/afelandra_erwinia_foliar_02.jpg",
-  "/assets/fotos/alface_agrobacterium_raiz_01.jpg",
-  "/assets/fotos/alface_pcichorii_colo_01.jpg",
-  "/assets/fotos/alface_pcichorii_colo_02.jpg",
-  "/assets/fotos/alface_pcichorii_colo_03.jpg",
-  "/assets/fotos/alface_pcichorii_colo_04.jpg",
-  "/assets/fotos/alface_pcichorii_colo_05.jpg",
-  "/assets/fotos/alface_pectobacterium_colo_01.jpg",
-  "/assets/fotos/alface_pectobacterium_planta_01.jpg",
-  "/assets/fotos/alface_pectobacterium_planta_02.jpg",
-  "/assets/fotos/alface_xvitians_foliar_01.jpg",
-  "/assets/fotos/algodao_xmalvacearum_foliar_01.jpg",
-  "/assets/fotos/algodao_xmalvacearum_foliar_02.jpg",
-  "/assets/fotos/algodao_xmalvacearum_foliar_03.jpg",
-  "/assets/fotos/algodao_xmalvacearum_foliar_04.jpg",
-  "/assets/fotos/algodao_xmalvacearum_foliar_05.jpg",
-  "/assets/fotos/alho_pfuscovaginae _foliar_01.jpg",
-  "/assets/fotos/alho_pfuscovaginae _foliar_02.jpg",
-  "/assets/fotos/alho_pmarginalis_planta_01.jpg",
-  "/assets/fotos/amarilis_erwinia_bulbo_01.jpg",
-  "/assets/fotos/amarilis_erwinia_bulbo_02.jpg",
-  "/assets/fotos/amarilis_erwinia_bulbo_03.jpg",
-  "/assets/fotos/amarilis_erwinia_bulbo_04.jpg",
-  "/assets/fotos/amarilis_erwinia_bulbo_05.jpg",
-  "/assets/fotos/amarilis_erwinia_murcha_01.jpg",
-  "/assets/fotos/ameixa_xpruni_foliar_01.jpg",
-  "/assets/fotos/ameixa_xpruni_fruto_01.jpg",
-  "/assets/fotos/ameixa_xpruni_fruto_02.jpg",
-  "/assets/fotos/ameixa_xpruni_fruto_03.jpg",
-  "/assets/fotos/ameixa_xpruni_galho_01.jpg",
-  "/assets/fotos/ameixa_xpruni_planta_01.jpg",
-  "/assets/fotos/anturio_aanthurii_foliar_01.jpg",
-  "/assets/fotos/anturio_aanthurii_foliar_02.jpg",
-  "/assets/fotos/anturio_aanthurii_foliar_03.jpg",
-  "/assets/fotos/anturio_xdieffenbachieae_flor_01.jpg",
-  "/assets/fotos/anturio_xdieffenbachieae_foliar_01.jpg",
-  "/assets/fotos/anturio_xdieffenbachieae_foliar_02.jpg",
-  "/assets/fotos/arroz_pfuscovaginae_haste_01.jpg",
-  "/assets/fotos/arroz_pfuscovaginae_panicula_01.jpg",
-  "/assets/fotos/arroz_pfuscovaginae_panicula_02.jpg",
-  "/assets/fotos/aster_acidovorax_planta_01.jpg",
-  "/assets/fotos/aster_pseudomonas_foliar_01.jpg",
-  "/assets/fotos/aster_pseudomonas_foliar_02.jpg",
-  "/assets/fotos/aster_pseudomonas_foliar_03.jpg",
-  "/assets/fotos/aster_pseudomonas_foliar_04.jpg",
-  "/assets/fotos/aveia_pstriafaciens_foliar_01.jpg",
-  "/assets/fotos/aveia_pstriafaciens_foliar_02.jpg",
-  "/assets/fotos/banana_ralstonia_cacho_01.jpg",
-  "/assets/fotos/banana_ralstonia_foliar_01.jpg",
-  "/assets/fotos/banana_ralstonia_planta_01.jpg",
-  "/assets/fotos/banana_ralstonia_planta_02.jpg",
-  "/assets/fotos/banana_ralstonia_pseudocaule_01.jpg",
-  "/assets/fotos/batata_pectobacterium_ramo_01.jpg",
-  "/assets/fotos/batata_pectobacterium_ramo_02.jpg",
-  "/assets/fotos/batata_pectobacterium_tuberculo_01.JPG",
-  "/assets/fotos/batata_ralstonia_exudacao_01.jpg",
-  "/assets/fotos/batata_ralstonia_exudacao_02.jpg",
-  "/assets/fotos/batata_streptomyces_tuberculo_01.JPG",
-  "/assets/fotos/batata_streptomyces_tuberculo_02.JPG",
-  "/assets/fotos/batata_streptomyces_tuberculo_03.jpg",
-  "/assets/fotos/batata_streptomyces_tuberculo_04.JPG",
-  "/assets/fotos/begonia_xbegoniae_caule_01.jpg",
-  "/assets/fotos/begonia_xbegoniae_foliar_01.jpg",
-  "/assets/fotos/begonia_xbegoniae_foliar_02.jpg",
-  "/assets/fotos/begonia_xbegoniae_foliar_03.jpg",
-  "/assets/fotos/begonia_xbegoniae_foliar_04.jpg",
-  "/assets/fotos/begonia_xbegoniae_foliar_05.jpg",
-  "/assets/fotos/begonia_xbegoniae_foliar_06.jpg",
-  "/assets/fotos/begonia_xbegoniae_foliar_07.jpg",
-  "/assets/fotos/berinjela_ralstonia_escurecimentovasos_01.jpg",
-  "/assets/fotos/berinjela_ralstonia_murcha_01.jpg",
-  "/assets/fotos/brocolis_xcampestris_muda_01.jpg",
-  "/assets/fotos/cafe_pcichorii_foliar_01.JPG",
-  "/assets/fotos/cafe_pcichorii_foliar_02.JPG",
-  "/assets/fotos/cafe_pgarcae_foliar_01.jpg",
-  "/assets/fotos/cafe_pgarcae_foliar_02.jpg",
-  "/assets/fotos/cafe_ptabaci_foliar_01.JPG",
-  "/assets/fotos/cafe_robbisia_foliar_01.JPG",
-  "/assets/fotos/calendula_pcichorii_foliar_01.jpg",
-  "/assets/fotos/calendula_pcichorii_foliar_02.jpg",
-  "/assets/fotos/calendula_pcichorii_foliar_03.jpg",
-  "/assets/fotos/calendula_pcichorii_muda_01.jpg",
-  "/assets/fotos/canola_xcampestris_foliar_01.jpg",
-  "/assets/fotos/canola_xcampestris_foliar_02.jpg",
-  "/assets/fotos/cara_agrobacterium_raiz_01.jpg",
-  "/assets/fotos/cara_agrobacterium_raiz_02.jpg",
-  "/assets/fotos/cattleya_acidovorax_foliar_01.jpg",
-  "/assets/fotos/cattleya_acidovorax_foliar_02.jpg",
-  "/assets/fotos/cattleya_acidovorax_foliar_03.jpg",
-  "/assets/fotos/cattleya_acidovorax_foliar_04.jpg",
-  "/assets/fotos/cebola_pectobacterium_podridao_01.jpg",
-  "/assets/fotos/cebola_pectobacterium_podridao_02.jpg",
-  "/assets/fotos/cebola_pviridiflava_foliar_01.jpg",
-  "/assets/fotos/cenoura_agrobacterium_galha_01.jpg",
-  "/assets/fotos/cenoura_agrobacterium_galha_02.jpg",
-  "/assets/fotos/cenoura_agrobacterium_galha_03.jpg",
-  "/assets/fotos/cenoura_pectobacterium_podridao_01.jpg",
-  "/assets/fotos/cenoura_pectobacterium_podridao_02.jpg",
-  "/assets/fotos/centeio_xcerealis_foliar_01.jpg",
-  "/assets/fotos/centeio_xcerealis_foliar_02.jpg",
-  "/assets/fotos/centeio_xsecalis_foliar_01.jpg",
-  "/assets/fotos/chicoria_pcichorii_foliar_01.jpg",
-  "/assets/fotos/chicoria_xanthomonas_foliar_01.jpg",
-  "/assets/fotos/ciclame_erwinia_foliar_01.jpg",
-  "/assets/fotos/ciclame_erwinia_foliar_02.jpg",
-  "/assets/fotos/citrus_xcitri_foliar_01.jpg",
-  "/assets/fotos/citrus_xcitri_foliar_02.jpg",
-  "/assets/fotos/citrus_xcitri_fruto_01.jpg",
-  "/assets/fotos/citrus_xcitri_galho_01.jpg",
-  "/assets/fotos/clorofito_erwinia_foliar_01.jpg",
-  "/assets/fotos/clorofito_erwinia_foliar_02.jpg",
-  "/assets/fotos/clorofito_erwinia_foliar_03.jpg",
-  "/assets/fotos/clorofito_erwinia_foliar_04.jpg",
-  "/assets/fotos/comigoniguempode_erwinia_foliar_01.jpg",
-  "/assets/fotos/copodeleite_erwinia_muda_01.jpg",
-  "/assets/fotos/cordyline_erwinia_foliar_01.jpg",
-  "/assets/fotos/cordyline_erwinia_foliar_02.jpg",
-  "/assets/fotos/cordyline_erwinia_foliar_03.jpg",
-  "/assets/fotos/couve_pmaculicola_foliar_01.jpg",
-  "/assets/fotos/couve_pmaculicola_foliar_02.jpg",
-  "/assets/fotos/couve_xcampestris_foliar_01.jpg",
-  "/assets/fotos/couvechinesa_xcampestris_foliar_01.jpg",
-  "/assets/fotos/couvechinesa_xcampestris_foliar_02.jpg",
-  "/assets/fotos/couveflor_pectobacterium_flor_01.jpg",
-  "/assets/fotos/couveflor_pectobacterium_flor_02.jpg",
-  "/assets/fotos/couveflor_pmaculicola_foliar_01.jpg",
-  "/assets/fotos/couveflor_pmaculicola_foliar_02.jpg",
-  "/assets/fotos/couveflor_pmaculicola_foliar_03.jpg",
-  "/assets/fotos/couveflor_pmaculicola_planta_01.jpg",
-  "/assets/fotos/couveflor_xcampestris_foliar_01.jpg",
-  "/assets/fotos/couveflor_xcampestris_foliar_02.jpg",
-  "/assets/fotos/couveflor_xcampestris_planta_01.jpg",
-  "/assets/fotos/cravo_erwinia_colo_01.jpg",
-  "/assets/fotos/cravo_erwinia_foliar_01.jpg",
-  "/assets/fotos/cravo_erwinia_foliar_02.jpg",
-  "/assets/fotos/cravo_erwinia_muda_01.jpg",
-  "/assets/fotos/cravo_pwoodsi_flor_01.jpg",
-  "/assets/fotos/cravo_pwoodsi_flor_02.jpg",
-  "/assets/fotos/crisantemo_agrobacterium_caule_01.jpg",
-  "/assets/fotos/crisantemo_agrobacterium_foliar_01.jpg",
-  "/assets/fotos/crisantemo_pcichorii_foliar_01.jpg",
-  "/assets/fotos/crisantemo_pcichorii_foliar_02.jpg",
-  "/assets/fotos/cristadegalo_ptabaci_muda_01.jpg",
-  "/assets/fotos/datura_agrobacterium_caule_01.jpg",
-  "/assets/fotos/dendrobium_bgladioli_foliar_01.jpg",
-  "/assets/fotos/dendrobium_bgladioli_foliar_02.jpg",
-  "/assets/fotos/endivia_pcichorii_colo_01.jpg",
-  "/assets/fotos/endivia_pcichorii_foliar_01.jpg",
-  "/assets/fotos/eucalipto_ralstonia_caule_01.JPG",
-  "/assets/fotos/eucalipto_xanthomonas_foliar_01.JPG",
-  "/assets/fotos/feijao_curtobacterium_foliar_01.jpg",
-  "/assets/fotos/feijao_curtobacterium_foliar_02.jpg",
-  "/assets/fotos/feijao_curtobacterium_planta_01.jpg",
-  "/assets/fotos/feijao_curtobacterium_planta_02.jpg",
-  "/assets/fotos/feijao_curtobacterium_planta_03.jpg",
-  "/assets/fotos/feijao_curtobacterium_planta_04.jpg",
-  "/assets/fotos/feijao_ptabaci_foliar_01.jpg",
-  "/assets/fotos/feijao_xphaseoli_foliar_01.jpg",
-  "/assets/fotos/feijao_xphaseoli_foliar_02.jpg",
-  "/assets/fotos/feijao_xphaseoli_planta_01.jpg",
-  "/assets/fotos/filodendro_pcichorii_foliar_01.jpg",
-  "/assets/fotos/filodendro_pcichorii_foliar_02.jpg",
-  "/assets/fotos/filodendro_pcichorii_foliar_03.jpg",
-  "/assets/fotos/filodendro_pcichorii_foliar_04.jpg",
-  "/assets/fotos/fortuna_agrobacterium_planta_01.jpg",
-  "/assets/fotos/framboesa_agrobacterium_caule_01.jpg",
-  "/assets/fotos/framboesa_agrobacterium_caule_02.jpg",
-  "/assets/fotos/gengibre_pectobacterium_raiz_01.jpg",
-  "/assets/fotos/gengibre_pectobacterium_raiz_02.jpg",
-  "/assets/fotos/gengibre_pectobacterium_raiz_03.jpg",
-  "/assets/fotos/gerbera_pcichorii_foliar_01.jpg",
-  "/assets/fotos/gerbera_pcichorii_foliar_02.jpg",
-  "/assets/fotos/gerbera_pcichorii_foliar_03.jpg",
-  "/assets/fotos/girassol_pcichorii_foliar_01.jpg",
-  "/assets/fotos/girassol_pcichorii_foliar_02.jpg",
-  "/assets/fotos/gladiolo_bgladioli_foliar_01.jpg",
-  "/assets/fotos/gladiolo_pseudomonas_foliar_01.jpg",
-  "/assets/fotos/gladiolo_pseudomonas_foliar_02.jpg",
-  "/assets/fotos/gladiolo_pseudomonas_foliar_03.jpg",
-  "/assets/fotos/gmelina_agrobacterium_caule_01.jpg",
-  "/assets/fotos/gmelina_agrobacterium_caule_02.jpg",
-  "/assets/fotos/goiaba_epsidii_queimaflor_01.jpg",
-  "/assets/fotos/heliconia_ralstonia_pseudocaule_01.JPG",
-  "/assets/fotos/kalanchoe_agrobacterium_caule_01.jpg",
-  "/assets/fotos/mamao_ptabaci_foliar_01.jpg",
-  "/assets/fotos/mamao_ptabaci_foliar_02.jpg",
-  "/assets/fotos/mandioca_xanthomonas_maniva_01.JPG",
-  "/assets/fotos/mandioca_xanthomonas_maniva_02.JPG",
-  "/assets/fotos/mandioquinha_pcichorii_foliar_01.jpg",
-  "/assets/fotos/mandioquinha_pcichorii_foliar_02.jpg",
-  "/assets/fotos/mandioquinha_pcichorii_foliar_03.jpg",
-  "/assets/fotos/manga_xanthomonas_foliar_01.JPG",
-  "/assets/fotos/manga_xanthomonas_fruto_01.JPG",
-  "/assets/fotos/maracuja_xpassiflorae_foliar_01.jpg",
-  "/assets/fotos/maracuja_xpassiflorae_foliar_02.jpg",
-  "/assets/fotos/maracuja_xpassiflorae_foliar_03.jpg",
-  "/assets/fotos/maracuja_xpassiflorae_foliar_04.jpg",
-  "/assets/fotos/maracuja_xpassiflorae_foliar_05.jpg",
-  "/assets/fotos/maracuja_xpassiflorae_fruto_01.jpg",
-  "/assets/fotos/melancia_acidovorax_fruto_01.jpg",
-  "/assets/fotos/melancia_acidovorax_fruto_02.jpg",
-  "/assets/fotos/melao_xmelonis_foliar_01.jpg",
-  "/assets/fotos/melao_xmelonis_fruto_01.jpg",
-  "/assets/fotos/melao_xmelonis_fruto_02.jpg",
-  "/assets/fotos/melao_xmelonis_fruto_03.jpg",
-  "/assets/fotos/melao_xmelonis_fruto_04.jpg",
-  "/assets/fotos/milho_aavenae_foliar_01.jpg",
-  "/assets/fotos/milho_aavenae_foliar_02.jpg",
-  "/assets/fotos/milho_aavenae_foliar_03.jpg",
-  "/assets/fotos/milho_dickeyazeae_colmo_01.jpg",
-  "/assets/fotos/milho_dickeyazeae_colmo_02.jpg",
-  "/assets/fotos/milho_dickeyazeae_espiga_01.jpg",
-  "/assets/fotos/morango_xfragarie_foliar_01.jpg",
-  "/assets/fotos/morango_xfragarie_foliar_02.jpg",
-  "/assets/fotos/nabo_pcichorii_foliar_01.jpg",
-  "/assets/fotos/nabo_xcampestris_foliar_01.jpg",
-  "/assets/fotos/oncidium_bgladioli.jpg",
-  "/assets/fotos/oxalis_ralstonia_caule_01.jpg",
-  "/assets/fotos/oxalis_ralstonia_caule_02.jpg",
-  "/assets/fotos/oxalis_ralstonia_muda_01.jpg",
-  "/assets/fotos/oxalis_ralstonia_raiz_01.jpg",
-  "/assets/fotos/pepino_placrhymans_foliar_01.jpg",
-  "/assets/fotos/pepino_placrimans_foliar_01.JPG",
-  "/assets/fotos/phalaenopsis_erwinia_foliar_01.jpg",
-  "/assets/fotos/phalaenopsis_erwinia_foliar_02.jpg",
-  "/assets/fotos/phalaenopsis_erwinia_foliar_03.jpg",
-  "/assets/fotos/phalaenopsis_erwinia_foliar_04.jpg",
-  "/assets/fotos/pimenta_pectobacterium_fruto_01.jpg",
-  "/assets/fotos/pimenta_xvesicatoria_foliar_01.jpg",
-  "/assets/fotos/pimentao_clavibacter_epnastia_01.jpg",
-  "/assets/fotos/pimentao_clavibacter_epnastia_02.jpg",
-  "/assets/fotos/pimentao_clavibacter_foliar_01.jpg",
-  "/assets/fotos/pimentao_pectobacterium_fruto_01.jpg",
-  "/assets/fotos/pimentao_pectobacterium_fruto_02.jpg",
-  "/assets/fotos/pimentao_xvesicatoria_foliar_01.jpg",
-  "/assets/fotos/pimentao_xvesicatoria_planta_01.jpg",
-  "/assets/fotos/primula_erwinia_foliar_01.jpg",
-  "/assets/fotos/primula_erwinia_foliar_02.jpg",
-  "/assets/fotos/primula_erwinia_foliar_03.jpg",
-  "/assets/fotos/primula_erwinia_foliar_04.jpg",
-  "/assets/fotos/rabano_xcampestris_foliar_01.jpg",
-  "/assets/fotos/rosa_agrobacterium_caule_01.jpg",
-  "/assets/fotos/rosa_agrobacterium_caule_02.jpg",
-  "/assets/fotos/rosa_agrobacterium_planta_01.jpg",
-  "/assets/fotos/salsao_papii_foliar_01.jpg",
-  "/assets/fotos/salsao_papii_foliar_02.jpg",
-  "/assets/fotos/salsao_pcichorii_foliar_01.jpg",
-  "/assets/fotos/soja_pglycinea_foliar_01.jpg",
-  "/assets/fotos/tomate_clavibacter_fruto_01.JPG",
-  "/assets/fotos/tomate_clavibacter_haste_01.JPG",
-  "/assets/fotos/tomate_pcorrugata_planta_01.jpg",
-  "/assets/fotos/tomate_pectobacterium_caule_01.jpg",
-  "/assets/fotos/tomate_pmediterranea_caule_01.JPG",
-  "/assets/fotos/tomate_psyringae_foliar_01.jpg",
-  "/assets/fotos/tomate_ptomato_foliar_01.jpg",
-  "/assets/fotos/tomate_ptomato_foliar_02.jpg",
-  "/assets/fotos/tomate_pviridiflava_foliar_01.jpg",
-  "/assets/fotos/tomate_xvesicatoria_foliar_01.jpg",
-  "/assets/fotos/tomate_xvesicatoria_foliar_02.jpg",
-  "/assets/fotos/tomate_xvesicatoria_fruto_01.jpg",
-  "/assets/fotos/tomate_xvesicatoria_fruto_02.jpg",
-  "/assets/fotos/tomate_xvesicatoria_fruto_03.jpg",
-  "/assets/fotos/uva_agrobacterium_caule_01.jpg",
-  "/assets/fotos/uva_xviticola_foliar_01.jpg",
-  "/assets/fotos/uva_xviticola_foliar_02.jpg",
-  "/assets/fotos/uva_xviticola_foliar_03.jpg",
-  "/assets/fotos/videira_xanthomonas_foliar_01.JPG",
-  "/assets/fotos/videira_xanthomonas_foliar_02.JPG",
-  "/assets/fotos/videira_xanthomonas_foliar_03.JPG",
-  "/assets/fotos/videira_xanthomonas_fruto_01.JPG",
-  "/assets/fotos/videira_xanthomonas_haste_01.JPG",
-  "/assets/fotos/violeta_erwinia_foliar_01.jpg",
-  "/assets/fotos/violeta_erwinia_foliar_02.jpg",
-  "/assets/fotos/violeta_erwinia_mudas_01.jpg"
-];
+importScripts('assets/cache-manifest.js');
+const CACHE_PREFIX = 'fitobacterias-';
+const CACHE_NAME = `${CACHE_PREFIX}${self.APP_BUILD}`;
+const BASE = self.registration.scope;
+const url = path => new URL(path, BASE).href;
+const coreFiles = self.CORE_FILES.map(url);
+const photoFiles = self.PHOTO_FILES.map(url);
 
 self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache =>
-      Promise.allSettled(urlsToCache.map(url => cache.add(url)))
-    )
-  );
-  self.skipWaiting();
+  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(coreFiles)).then(() => self.skipWaiting()));
 });
-
 self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
-    )
-  );
-  self.clients.claim();
+  event.waitUntil((async () => {
+    const old = (await caches.keys()).filter(name => name.startsWith(CACHE_PREFIX) && name !== CACHE_NAME);
+    await Promise.all(old.map(name => caches.delete(name)));
+    await self.clients.claim();
+  })());
 });
-
 self.addEventListener('fetch', event => {
-  if (event.request.mode === 'navigate') {
-    event.respondWith(
-      fetch(event.request)
-        .then(response => {
-          const clone = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put('/index.html', clone));
-          return response;
-        })
-        .catch(() => caches.match('/index.html'))
-    );
-    return;
-  }
-  event.respondWith(
-    caches.match(event.request).then(response => {
-      if (response) return response;
-      return fetch(event.request).then(fetchResponse => {
-        if (!fetchResponse || fetchResponse.status !== 200 || fetchResponse.type !== 'basic') return fetchResponse;
-        const clone = fetchResponse.clone();
-        caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
-        return fetchResponse;
-      }).catch(() => {
-        if (event.request.destination === 'document') return caches.match('/index.html');
-      });
-    })
-  );
+  if (event.request.method !== 'GET' || new URL(event.request.url).origin !== self.location.origin) return;
+  event.respondWith((async () => {
+    const cache = await caches.open(CACHE_NAME);
+    // Keep HTML and scripts from one release together, including when offline.
+    if (event.request.mode === 'navigate') {
+      return await cache.match(url('index.html')) || fetch(event.request);
+    }
+    const cached = await cache.match(event.request);
+    if (cached) return cached;
+    try {
+      const response = await fetch(event.request);
+      if (response.ok && photoFiles.includes(event.request.url)) await cache.put(event.request, response.clone());
+      return response;
+    } catch { return new Response('Recurso indisponivel offline', {status:503,headers:{'Content-Type':'text/plain;charset=utf-8'}}); }
+  })());
 });
 
+async function status() {
+  const cache = await caches.open(CACHE_NAME);
+  const keys = new Set((await cache.keys()).map(request => request.url));
+  return {core:coreFiles.every(file => keys.has(file)),cached:photoFiles.filter(file => keys.has(file)).length,total:photoFiles.length};
+}
+let downloading;
+self.addEventListener('message', event => {
+  const port = event.ports[0]; if (!port) return;
+  event.waitUntil((async () => {
+    try {
+      if (event.data.type === 'DOWNLOAD_PHOTOS') {
+        if (!downloading) {
+          downloading = (async () => {
+            const cache = await caches.open(CACHE_NAME);
+            let index = 0, cached = (await status()).cached;
+            const workers = Array.from({length:4}, async () => {
+              while (index < photoFiles.length) {
+                const file = photoFiles[index++];
+                if (await cache.match(file)) continue;
+                try {
+                  const response = await fetch(file);
+                  if (response.ok && response.headers.get('Content-Type')?.startsWith('image/')) {
+                    await cache.put(file,response); cached++;
+                  }
+                } catch { /* A retry resumes from photos already saved. */ }
+                port.postMessage({progress:true,cached,total:photoFiles.length});
+              }
+            });
+            await Promise.all(workers);
+          })().finally(() => { downloading = null; });
+        }
+        await downloading;
+      }
+      port.postMessage(await status());
+    } catch (error) { port.postMessage({error:error.message}); }
+  })());
+});

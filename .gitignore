@@ -1,0 +1,15 @@
+node_modules/
+.npm-cache/
+dist/
+reports/
+*.zip
+_docx_extract*/
+_github_pages_*/
+_netlify_*/
+upload_github_*/
+.agents/
+.codex/
+.env*
+.wrangler/
+assets/Nova pasta/
+*.log

@@ -1,0 +1,19 @@
+{
+  "name": "fitobacterias-br",
+  "version": "5.0.0",
+  "private": true,
+  "description": "Consulta de bacterias fitopatogenicas assinaladas no Brasil",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "postbuild": "node scripts/test.js",
+    "test": "node scripts/test.js",
+    "dev": "node scripts/serve.js"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "leaflet": "1.9.4",
+    "lucide": "0.468.0"
+  }
+}
