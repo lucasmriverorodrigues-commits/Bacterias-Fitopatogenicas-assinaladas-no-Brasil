@@ -17,13 +17,16 @@ Em **Workers & Pages > Create application > Import a repository**, selecione o r
 
 | Configuração | Valor |
 | --- | --- |
-| Nome do Worker | `fitobacterias-br` |
+| Nome do Worker | `bacterias-fitopatogenicas-assinaladas-no-brasil` |
+| Branch de produção | `interface-v5-cloudflare` |
 | Diretório raiz | vazio, raiz do repositório |
 | Comando de build | `npm run build` |
-| Comando de deploy | `npx wrangler deploy` |
+| Comando de deploy | `npx wrangler deploy --assets ./dist` |
 | Versão do Node | `22` ou superior |
 
 O arquivo `wrangler.jsonc` já aponta para `dist`. Use o mesmo nome de Worker indicado nele. O endereço real `workers.dev` será informado pelo painel após o primeiro deploy. Nenhum endereço de produção novo foi reservado por este documento.
+
+Se a publicação indicar `Asset too large` e citar `.git/objects`, o diretório de arquivos estáticos está incorreto. Em **Settings > Build**, confira a branch de produção e os comandos acima. O diretório raiz do projeto deve continuar na raiz do repositório; somente os arquivos estáticos publicados vêm de `./dist`. Não use `--assets .` e não apague a pasta `.git`. Inicie um build da branch `interface-v5-cloudflare`, em vez de repetir um build de um commit antigo da `main`.
 
 Após conectar o repositório, cada **Push origin** na branch configurada dispara uma nova publicação. Confira o sucesso do build antes de abrir o aplicativo.
 
@@ -64,4 +67,3 @@ Fontes oficiais:
 - [Cloudflare: integração Git](https://developers.cloudflare.com/workers/ci-cd/builds/git-integration/)
 - [Cloudflare: arquivos estáticos](https://developers.cloudflare.com/workers/static-assets/)
 - [GitHub: arquivar e citar software com DOI](https://docs.github.com/en/repositories/archiving-a-github-repository/referencing-and-citing-content)
-

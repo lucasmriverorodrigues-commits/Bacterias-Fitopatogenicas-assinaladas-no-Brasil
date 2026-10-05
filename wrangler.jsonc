@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "fitobacterias-br",
+  "name": "bacterias-fitopatogenicas-assinaladas-no-brasil",
   "compatibility_date": "2026-10-01",
   "assets": {
     "directory": "./dist"
